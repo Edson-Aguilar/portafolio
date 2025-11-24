@@ -1,0 +1,21 @@
+{
+    "name": "portafolio",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Bienvenido a mi portafolio profesional.   Este proyecto está creado en **Laravel Blade + Tailwind 4 + Alpine.js**, con soporte para **modo oscuro**, **i18n (ES/EN)**, diseño tipo mármol, animaciones y un enfoque profesional y minimalista.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "postcss css/app.css -o css/output.css"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@tailwindcss/postcss": "4.1.17",
+        "autoprefixer": "10.4.22",
+        "postcss": "8.5.6",
+        "postcss-cli": "11.0.1",
+        "tailwindcss": "4.1.17"
+    },
+    "keywords": []
+}

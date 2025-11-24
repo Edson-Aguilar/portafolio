@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Edson Aguilar · Portafolio</title>
+
+        <!-- SEO básico -->
+        <meta
+            name="description"
+            content="Portafolio de Edson Aguilar, desarrollador Full Stack especializado en Laravel, Livewire, Tailwind, WordPress, SEO y despliegues en servidores Linux."
+        />
+        <link rel="stylesheet" href="/css/app.css" />
+
+        <script src="/lang/traducciones.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    </head>
+
+    <body
+        x-data="i18n"
+        x-init="
+    document.documentElement.classList.toggle('dark', dark);
+    $watch('dark', value => {
+      document.documentElement.classList.toggle('dark', value);
+      localStorage.setItem('theme', value ? 'dark' : 'light');
+    });
+  "
+        :class="dark ? 'dark marble-dark text-slate-100' : 'marble-light text-slate-800'"
+        class="fade-in min-h-screen"
+    >
+        <!-- NAV -->
+        <header
+            class="border-b border-slate-200/70 dark:border-white/25 bg-white/80 dark:bg-[#050509]/80 backdrop-blur-md sticky top-0 z-20"
+        >
+            <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+                <!-- LOGO -->
+                <a href="#top" class="flex items-center gap-2">
+                    <img src="/logo.png" class="h-8 w-8 rounded-full object-cover shadow" alt="Logo Edson Aguilar" />
+                    <span class="text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-100">
+                        Edson Aguilar
+                    </span>
+                </a>
+
+                <!-- MENU -->
+                <nav class="hidden md:flex items-center gap-6 text-sm">
+                    <a
+                        href="#top"
+                        class="hover:text-slate-900 dark:hover:text-white transition-colors"
+                        x-text="t('menu_inicio')"
+                    ></a>
+                    <a
+                        href="#experiencia"
+                        class="hover:text-slate-900 dark:hover:text-white transition-colors"
+                        x-text="t('menu_experiencia')"
+                    ></a>
+                    <a
+                        href="#proyectos"
+                        class="hover:text-slate-900 dark:hover:text-white transition-colors"
+                        x-text="t('menu_proyectos')"
+                    ></a>
+                    <a
+                        href="#contacto"
+                        class="hover:text-slate-900 dark:hover:text-white transition-colors"
+                        x-text="t('menu_contacto')"
+                    ></a>
+
+                    <!-- Toggle Modo Oscuro -->
+                    <button
+                        @click="dark = !dark"
+                        class="ml-4 flex items-center justify-center h-9 w-9 rounded-lg border border-slate-300/70 dark:border-white/40 bg-white/90 dark:bg-[#151517] shadow-sm hover:bg-slate-100 dark:hover:bg-[#1e1e20] transition-colors duration-200"
+                        aria-label="Cambiar tema"
+                    >
+                        <!-- LUNA (modo claro) -->
+                        <svg
+                            x-show="!dark"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="h-5 w-5 text-slate-800"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 
+                 0-1.323.258-2.584.727-3.752A9.753 9.753 0 003 12c0 5.385 
+                 4.365 9.75 9.75 9.75a9.753 9.753 0 009.002-6.748z"
+                            />
+                        </svg>
+
+                        <!-- SOL (modo oscuro) -->
+                        <svg
+                            x-show="dark"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 32 32"
+                            class="h-5 w-5 text-yellow-400 fill-current"
+                        >
+                            <path
+                                d="M 15 3 L 15 8 L 17 8 L 17 3 Z M 7.5 6.09375 L 6.09375 7.5 L 9.625 11.0625 L 11.0625 9.625 Z M 24.5 6.09375 L 20.9375 9.625 L 22.375 11.0625 L 25.90625 7.5 Z M 16 9 C 12.144531 9 9 12.144531 9 16 C 9 19.855469 12.144531 23 16 23 C 19.855469 23 23 19.855469 23 16 C 23 12.144531 19.855469 9 16 9 Z M 16 11 C 18.773438 11 21 13.226563 21 16 C 21 18.773438 18.773438 21 16 21 C 13.226563 21 11 18.773438 11 16 C 11 13.226563 13.226563 11 16 11 Z M 3 15 L 3 17 L 8 17 L 8 15 Z M 24 15 L 24 17 L 29 17 L 29 15 Z M 9.625 20.9375 L 6.09375 24.5 L 7.5 25.90625 L 11.0625 22.375 Z M 22.375 20.9375 L 20.9375 22.375 L 24.5 25.90625 L 25.90625 24.5 Z M 15 24 L 15 29 L 17 29 L 17 24 Z"
+                            ></path>
+                        </svg>
+                    </button>
+
+                    <!-- Toggle Idioma -->
+                    <button
+                        @click="switchLang(lang === 'es' ? 'en' : 'es')"
+                        class="ml-3 flex items-center justify-center h-9 px-3 rounded-lg border border-slate-300/70 dark:border-white/40 bg-white/90 dark:bg-[#151517] shadow-sm hover:bg-slate-100 dark:hover:bg-[#1e1e20] transition-colors duration-200 text-xs font-semibold"
+                    >
+                        <span x-show="lang === 'es'">🇲🇽 ES</span>
+                        <span x-show="lang === 'en'">🇺🇸 EN</span>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <main id="top" class="min-h-[calc(100vh-4rem)]">
+            <!-- HERO -->
+            <section class="py-16 md:py-24">
+                <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+                    <!-- FOTO / AVATAR -->
+                    <div class="flex justify-center fade-up">
+                        <div
+                            class="relative h-52 w-52 md:h-64 md:w-64 rounded-full overflow-hidden shadow-[0_25px_70px_rgba(15,23,42,0.25)] ring-2 ring-slate-200/70 dark:ring-white/60"
+                        >
+                            <img
+                                src="/logo.png"
+                                alt="Foto de perfil de Edson Aguilar"
+                                class="h-full w-full object-cover"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <div
+                                class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-white/40 mix-blend-screen"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- TEXTO -->
+                    <div class="fade-down space-y-5">
+                        <p
+                            class="text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-slate-500 dark:text-slate-200"
+                            x-text="t('hero_sub')"
+                        ></p>
+
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                            <span x-text="t('hero_hola')"></span>
+                            <span class="text-slate-900 dark:text-white"> Edson Aguilar.</span>
+                        </h1>
+
+                        <p
+                            class="text-lg text-slate-600 dark:text-gray-200 leading-relaxed max-w-xl"
+                            x-text="t('hero_desc')"
+                        ></p>
+
+                        <!-- CTA + Stats -->
+                        <div class="flex flex-col gap-4 mt-4 sm:flex-row sm:items-center fade-up">
+                            <div class="flex gap-3">
+                                <a
+                                    href="#proyectos"
+                                    class="inline-flex items-center rounded-full bg-slate-900 dark:bg-white px-5 py-2.5 text-sm font-semibold text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 transition"
+                                    x-text="t('hero_btn_proyectos')"
+                                >
+                                </a>
+
+                                <a
+                                    href="/CV_Edson.pdf"
+                                    target="_blank"
+                                    class="inline-flex items-center rounded-full border border-slate-300 dark:border-white px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-transparent hover:bg-slate-50 dark:hover:bg-[#1a1a1c] transition"
+                                    x-text="t('hero_btn_cv')"
+                                >
+                                </a>
+                            </div>
+
+                            <div class="flex gap-6 text-xs text-slate-500 dark:text-slate-200">
+                                <div>
+                                    <div
+                                        class="font-semibold text-slate-900 dark:text-slate-100"
+                                        x-text="t('years')"
+                                    ></div>
+                                    <div x-text="t('hero_exp')"></div>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-slate-900 dark:text-slate-100">PHP · Laravel</div>
+                                    <div x-text="t('hero_backend')"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SOBRE MÍ / ROL -->
+            <section class="py-16 bg-neutral-50/80 dark:bg-[#101012]/60 fade-in">
+                <div class="max-w-6xl mx-auto px-6">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-8" x-text="t('sobre_titulo')"></h2>
+
+                    <div class="grid md:grid-cols-3 gap-10">
+                        <!-- BACKEND -->
+                        <article class="card p-7 space-y-3 fade-up hover:shadow-lg">
+                            <h3 class="font-semibold text-lg" x-text="t('sobre_backend_titulo')"></h3>
+                            <p
+                                class="text-[15px] text-slate-700 dark:text-slate-200 leading-relaxed"
+                                x-text="t('sobre_backend_desc')"
+                            ></p>
+                        </article>
+
+                        <!-- FRONTEND -->
+                        <article class="card p-7 space-y-3 fade-up [animation-delay:0.15s] hover:shadow-lg">
+                            <h3 class="font-semibold text-lg" x-text="t('sobre_frontend_titulo')"></h3>
+                            <p
+                                class="text-[15px] text-slate-700 dark:text-slate-200 leading-relaxed"
+                                x-text="t('sobre_frontend_desc')"
+                            ></p>
+                        </article>
+
+                        <!-- SERVIDORES -->
+                        <article class="card p-7 space-y-3 fade-up [animation-delay:0.3s] hover:shadow-lg">
+                            <h3 class="font-semibold text-lg" x-text="t('servers')"></h3>
+                            <p
+                                class="text-[15px] text-slate-700 dark:text-slate-200 leading-relaxed"
+                                x-text="t('sobre_servers_desc')"
+                            ></p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EXPERIENCIA (TIMELINE) -->
+            <section id="experiencia" class="py-20 fade-in">
+                <div class="max-w-6xl mx-auto px-6">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-12 fade-down" x-text="t('exp_titulo')"></h2>
+
+                    <div class="relative border-l-2 border-slate-300/40 dark:border-white/10 pl-8 space-y-14">
+                        <!-- Línea decorativa -->
+                        <div
+                            class="absolute left-0 top-0 h-full w-[2px] bg-gradient-to-b from-slate-300/70 via-slate-400/40 to-transparent dark:from-white/30 dark:via-white/10"
+                        ></div>
+
+                        <!-- Strappberry -->
+                        <article class="relative fade-up">
+                            <div class="card p-7 shadow-md hover:shadow-xl transition duration-300">
+                                <div class="flex flex-wrap items-center justify-between gap-4 mb-3">
+                                    <h3 class="font-semibold text-lg" x-text="t('exp_1_titulo')"></h3>
+                                    <span
+                                        class="text-xs text-slate-500 dark:text-slate-300 whitespace-nowrap"
+                                        x-text="t('exp_1_fecha')"
+                                    ></span>
+                                </div>
+
+                                <p
+                                    class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed mb-4"
+                                    x-text="t('exp_1_desc')"
+                                ></p>
+
+                                <div class="grid sm:grid-cols-2 gap-3 text-xs">
+                                    <template x-for="item in Object.values(t('exp_1_items'))">
+                                        <div
+                                            class="bg-slate-100/60 dark:bg-white/5 px-3 py-2 rounded-lg"
+                                            x-text="item"
+                                        ></div>
+                                    </template>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Planeta Fiscal -->
+                        <article class="relative fade-up [animation-delay:0.15s]">
+                            <div class="card p-7 shadow-md hover:shadow-xl transition duration-300">
+                                <div class="flex flex-wrap items-center justify-between gap-4 mb-3">
+                                    <h3 class="font-semibold text-lg" x-text="t('exp_2_titulo')"></h3>
+                                    <span
+                                        class="text-xs text-slate-500 dark:text-slate-300 whitespace-nowrap"
+                                        x-text="t('exp_2_fecha')"
+                                    ></span>
+                                </div>
+
+                                <p
+                                    class="text-[15px] text-slate-600 dark:text-slate-300 leading-relaxed mb-4"
+                                    x-text="t('exp_2_desc')"
+                                ></p>
+
+                                <ul class="list-disc ml-5 space-y-1 text-xs text-slate-700 dark:text-slate-300">
+                                    <template x-for="item in Object.values(t('exp_2_items'))">
+                                        <li x-text="item"></li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HABILIDADES / STACK -->
+            <section class="py-18 pb-20">
+                <div class="max-w-6xl mx-auto px-6">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-8 fade-down" x-text="t('stack_titulo')"></h2>
+
+                    <div class="grid md:grid-cols-5 gap-6 text-sm fade-up">
+                        <!-- Backend -->
+                        <div class="card p-5">
+                            <h3
+                                class="font-semibold mb-2 text-xs uppercase tracking-wide"
+                                x-text="t('stack_titulo_backend')"
+                            ></h3>
+                            <ul class="space-y-1 text-slate-700 dark:text-gray-200">
+                                <template x-for="item in t('stack_backend')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </div>
+
+                        <!-- Frontend -->
+                        <div class="card p-5">
+                            <h3 class="font-semibold mb-2 text-xs uppercase tracking-wide">Frontend / UI</h3>
+                            <ul class="space-y-1 text-slate-700 dark:text-gray-200">
+                                <template x-for="item in t('stack_frontend')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </div>
+
+                        <!-- DevOps -->
+                        <div class="card p-5">
+                            <h3
+                                class="font-semibold mb-2 text-xs uppercase tracking-wide"
+                                x-text="t('stack_titulo_DevOps')"
+                            ></h3>
+                            <ul class="space-y-1 text-slate-700 dark:text-gray-200">
+                                <template x-for="item in t('stack_devops')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </div>
+
+                        <!-- WordPress + SEO -->
+                        <div class="card p-5">
+                            <h3 class="font-semibold mb-2 text-xs uppercase tracking-wide">WordPress & SEO</h3>
+                            <ul class="space-y-1 text-slate-700 dark:text-gray-200">
+                                <template x-for="item in t('stack_wpseo')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </div>
+
+                        <!-- Soft Skills -->
+                        <div class="card p-5">
+                            <h3 class="font-semibold mb-2 text-xs uppercase tracking-wide">Soft Skills</h3>
+                            <ul class="space-y-1 text-slate-700 dark:text-gray-200">
+                                <template x-for="item in t('stack_softskills')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROYECTOS -->
+            <section id="proyectos" class="py-24">
+                <div class="max-w-7xl mx-auto px-6">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-12 fade-down" x-text="t('proyectos_titulo')"></h2>
+
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <!-- Graduaciones Zárate -->
+                        <a
+                            href="https://graduaciones-zarate.strappberry.com/"
+                            target="_blank"
+                            class="card p-7 fade-up [animation-delay:0.15s] hover:-translate-y-1 hover:shadow-xl transition block group"
+                        >
+                            <div class="flex items-center justify-between gap-3 mb-3">
+                                <h3 class="font-semibold text-lg">Graduaciones Zárate – SaaS Multitenant</h3>
+                                <span
+                                    class="text-[10px] px-2 py-1 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-white"
+                                >
+                                    Laravel · Multitenant
+                                </span>
+                            </div>
+                            <ul class="list-disc ml-5 space-y-1 text-sm text-slate-600 dark:text-slate-200">
+                                <template x-for="item in t('p_grad_items')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </a>
+
+                        <!-- SmartFleet -->
+                        <a
+                            href="https://smartfleetapp.com/"
+                            target="_blank"
+                            class="card p-7 fade-up [animation-delay:0.25s] hover:-translate-y-1 hover:shadow-xl transition block group"
+                        >
+                            <div class="flex items-center justify-between gap-3 mb-3">
+                                <h3 class="font-semibold text-lg">SmartFleet – Plataforma Logística</h3>
+                                <span
+                                    class="text-[10px] px-2 py-1 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-white"
+                                >
+                                    Fleet · SaaS
+                                </span>
+                            </div>
+                            <ul class="list-disc ml-5 space-y-1 text-sm text-slate-600 dark:text-slate-200">
+                                <template x-for="item in t('p_smart_items')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </a>
+
+                        <!-- Ntrena -->
+                        <a
+                            href="https://ntrenagroup.com/"
+                            target="_blank"
+                            class="card p-7 fade-up [animation-delay:0.35s] hover:-translate-y-1 hover:shadow-xl transition block group"
+                        >
+                            <div class="flex items-center justify-between gap-3 mb-3">
+                                <h3 class="font-semibold text-lg">Ntrena – Sistema QR</h3>
+                                <span
+                                    class="text-[10px] px-2 py-1 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-white"
+                                >
+                                    QR System
+                                </span>
+                            </div>
+                            <ul class="list-disc ml-5 space-y-1 text-sm text-slate-600 dark:text-slate-200">
+                                <template x-for="item in t('p_ntrena_items')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </a>
+
+                        <!-- Fitness Inside -->
+                        <a
+                            href="https://fitnessinside.strappberry.com/login"
+                            target="_blank"
+                            class="card p-7 fade-up [animation-delay:0.45s] hover:-translate-y-1 hover:shadow-xl transition block group"
+                        >
+                            <div class="flex items-center justify-between gap-3 mb-3">
+                                <h3 class="font-semibold text-lg">Fitness Inside – SEO + Laravel</h3>
+                                <span
+                                    class="text-[10px] px-2 py-1 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-white"
+                                >
+                                    SEO · Opt.
+                                </span>
+                            </div>
+                            <ul class="list-disc ml-5 space-y-1 text-sm text-slate-600 dark:text-slate-200">
+                                <template x-for="item in t('p_fit_items')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </a>
+
+                        <!-- Mitikah -->
+                        <a
+                            href="https://www.mitikah.com.mx/"
+                            target="_blank"
+                            class="card p-7 fade-up [animation-delay:0.55s] hover:-translate-y-1 hover:shadow-xl transition block group"
+                        >
+                            <div class="flex items-center justify-between gap-3 mb-3">
+                                <h3 class="font-semibold text-lg">Mitikah – SEO Avanzado</h3>
+                                <span
+                                    class="text-[10px] px-2 py-1 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-white"
+                                >
+                                    SEO
+                                </span>
+                            </div>
+                            <ul class="list-disc ml-5 space-y-1 text-sm text-slate-600 dark:text-slate-200">
+                                <template x-for="item in t('p_mitikah_items')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </a>
+
+                        <!-- ArquiUrbus -->
+                        <a
+                            href="https://arquiurbus.strappberry.com/"
+                            target="_blank"
+                            class="card p-7 fade-up [animation-delay:0.65s] hover:-translate-y-1 hover:shadow-xl transition block group"
+                        >
+                            <h3 class="font-semibold text-lg mb-3">ArquiUrbus – Sistema Web</h3>
+                            <ul class="list-disc ml-5 space-y-1 text-sm text-slate-600 dark:text-slate-200">
+                                <template x-for="item in t('p_arqui_items')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </a>
+
+                        <!-- WKC (repositorio / proyecto propio) -->
+                        <a
+                            href="#"
+                            target="_blank"
+                            class="card p-7 fade-up hover:-translate-y-1 hover:shadow-xl transition block group"
+                        >
+                            <div class="flex items-center justify-between gap-3 mb-3">
+                                <h3 class="font-semibold text-lg">WKC – Sistema de Torneos</h3>
+                                <span
+                                    class="text-[10px] px-2 py-1 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-white"
+                                >
+                                    Laravel · Livewire
+                                </span>
+                            </div>
+                            <ul class="list-disc ml-5 space-y-1 text-sm text-slate-600 dark:text-slate-200">
+                                <template x-for="item in t('p_wkc_items')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </a>
+
+                        <!-- GLT -->
+                        <a
+                            href="https://glt.mx/"
+                            target="_blank"
+                            class="card p-7 fade-up [animation-delay:0.75s] hover:-translate-y-1 hover:shadow-xl transition block group"
+                        >
+                            <h3 class="font-semibold text-lg mb-3">GLT – WordPress</h3>
+                            <ul class="list-disc ml-5 space-y-1 text-sm text-slate-600 dark:text-slate-200">
+                                <template x-for="item in t('p_glt_items')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </a>
+
+                        <!-- Planeta Fiscal -->
+                        <a
+                            href="https://sistema.planetafiscal.com/index.php"
+                            target="_blank"
+                            class="card p-7 fade-up [animation-delay:0.85s] hover:-translate-y-1 hover:shadow-xl transition block group"
+                        >
+                            <h3 class="font-semibold text-lg mb-3">Planeta Fiscal – PHP Puro</h3>
+                            <ul class="list-disc ml-5 space-y-1 text-sm text-slate-600 dark:text-slate-200">
+                                <template x-for="item in t('p_planeta_items')">
+                                    <li x-text="item"></li>
+                                </template>
+                            </ul>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACTO -->
+            <section id="contacto" class="py-24 text-center fade-up">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4" x-text="t('contacto_titulo')"></h2>
+
+                <p
+                    class="text-slate-700 dark:text-slate-200 max-w-xl mx-auto mb-8 leading-relaxed"
+                    x-text="t('contacto_desc')"
+                ></p>
+
+                <!-- BOTONES DE CONTACTO -->
+                <div class="flex flex-col items-center gap-4">
+                    <!-- WhatsApp (Principal) -->
+                    <a
+                        href="https://wa.me/5215514704014"
+                        class="inline-flex items-center gap-2 rounded-full bg-green-500 px-7 py-3 text-white shadow-lg hover:bg-green-600 transition-all duration-200 hover:-translate-y-[2px] active:scale-[0.98]"
+                    >
+                        <img src="/assets/whatsapp.svg" class="h-5 w-5" alt="WhatsApp" />
+                        <span x-text="t('btn_whatsapp')"></span>
+                    </a>
+
+                    <!-- Email -->
+                    <a
+                        href="mailto:edsonaguilarrodriguez@gmail.com"
+                        class="inline-flex items-center gap-2 rounded-full bg-sky-600 hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-400 px-6 py-3 text-white shadow-lg transition-all duration-200 hover:-translate-y-[2px] active:scale-[0.98]"
+                    >
+                        <!--  Icono email -->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            class="h-5 w-5"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3.5 7.5l7.1 4.7c.9.6 2 .6 2.9 0l7-4.7"
+                            ></path>
+                            <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+                        </svg>
+
+                        <span x-text="t('btn_email')"></span>
+                    </a>
+
+                    <!-- REDES: GitHub y LinkedIn -->
+                    <div class="flex gap-6 mt-2">
+                        <!-- GitHub -->
+                        <a
+                            href="https://github.com/Edson-Aguilar"
+                            target="_blank"
+                            class="text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white transition"
+                        >
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 0.5C5.65 0.5 0.5 5.65 0.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.8-1.5-3.8-1.5-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.5 1.1 3.1.9.1-.7.4-1.1.7-1.4-2.5-.3-5.2-1.3-5.2-5.9 0-1.3.5-2.3 1.1-3.2 0-.3-.5-1.4.1-3 0 0 .9-.3 3.2 1.1a11.3 11.3 0 015.8 0c2.3-1.4 3.2-1.1 3.2-1.1.6 1.6.1 2.7.1 3 .7.9 1.1 2 1.1 3.2 0 4.6-2.7 5.6-5.2 5.9.5.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A10.9 10.9 0 0023.5 12c0-6.35-5.15-11.5-11.5-11.5z"
+                                />
+                            </svg>
+                        </a>
+
+                        <!-- LinkedIn -->
+                        <a
+                            href="https://www.linkedin.com/in/edson-aguilar-rodriguez/"
+                            target="_blank"
+                            class="text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition"
+                        >
+                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M4.98 3.5C4.98 4.6 4.1 5.5 3 5.5S1 4.6 1 3.5 1.9 1.5 3 1.5s1.98.9 1.98 2zM1.5 8.5h3V22h-3V8.5zM8.5 8.5h2.9V10h.1c.4-.7 1.5-1.5 3.1-1.5 3.3 0 4 2.2 4 5v8h-3v-7c0-1.7-.1-3.8-2.3-3.8-2.3 0-2.7 1.8-2.7 3.7V22h-3V8.5z"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Texto extra -->
+                    <span
+                        class="text-xs text-slate-500 dark:text-slate-300 mt-2"
+                        x-text="t('contacto_asincrono')"
+                    ></span>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer
+            class="py-8 text-center text-xs md:text-sm text-slate-500 dark:text-slate-200 border-t border-slate-200/70 dark:border-white/20"
+        >
+            © {{ date('Y') }} · Edson Aguilar —
+            <span x-text="t('footer')"></span>
+        </footer>
+        <!-- Diccionario de traducciones -->
+        <script src="/lang/traducciones.js"></script>
+
+        <!-- Componente Alpine de i18n -->
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('i18n', () => ({
+                    // Dark mode por defecto en "dark"
+                    dark: (localStorage.getItem('theme') ?? 'dark') === 'dark',
+
+                    // Idioma por defecto ES
+                    lang: localStorage.getItem('lang') || 'es',
+
+                    t(key) {
+                        const dict = window.translations?.[this.lang] || window.translations?.es || {};
+                        return dict[key] ?? key;
+                    },
+
+                    switchLang(l) {
+                        if (!window.translations || !window.translations[l]) return;
+                        this.lang = l;
+                        localStorage.setItem('lang', l);
+                    },
+                }));
+            });
+        </script>
+    </body>
+</html>
