@@ -5,14 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Edson Aguilar · Portafolio</title>
 
-        <!-- SEO básico -->
         <meta
             name="description"
             content="Portafolio de Edson Aguilar, desarrollador Full Stack especializado en Laravel, Livewire, Tailwind, WordPress, SEO y despliegues en servidores Linux."
         />
-        <link rel="stylesheet" href="/css/app.css" />
 
-        <script src="/lang/traducciones.js" defer></script>
+        <!-- CSS compilado -->
+        <link rel="stylesheet" href="css/output.css" />
+
+        <!-- Diccionario de traducciones -->
+        <script src="lang/traducciones.js" defer></script>
+
+        <!-- Alpine.js -->
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     </head>
 
@@ -35,7 +39,11 @@
             <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
                 <!-- LOGO -->
                 <a href="#top" class="flex items-center gap-2">
-                    <img src="/logo.png" class="h-8 w-8 rounded-full object-cover shadow" alt="Logo Edson Aguilar" />
+                    <img
+                        src="assets/logo.png"
+                        class="h-8 w-8 rounded-full object-cover shadow"
+                        alt="Logo Edson Aguilar"
+                    />
                     <span class="text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-100">
                         Edson Aguilar
                     </span>
@@ -124,7 +132,7 @@
                             class="relative h-52 w-52 md:h-64 md:w-64 rounded-full overflow-hidden shadow-[0_25px_70px_rgba(15,23,42,0.25)] ring-2 ring-slate-200/70 dark:ring-white/60"
                         >
                             <img
-                                src="/logo.png"
+                                src="assets/logo.png"
                                 alt="Foto de perfil de Edson Aguilar"
                                 class="h-full w-full object-cover"
                                 loading="lazy"
@@ -164,7 +172,7 @@
                                 </a>
 
                                 <a
-                                    href="/CV_Edson.pdf"
+                                    href="CV_Edson.pdf"
                                     target="_blank"
                                     class="inline-flex items-center rounded-full border border-slate-300 dark:border-white px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-transparent hover:bg-slate-50 dark:hover:bg-[#1a1a1c] transition"
                                     x-text="t('hero_btn_cv')"
