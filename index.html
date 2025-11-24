@@ -35,7 +35,6 @@
         <!-- NAV -->
         <header
             class="border-b border-slate-200/70 dark:border-white/25 bg-white/80 dark:bg-[#050509]/80 backdrop-blur-md sticky top-0 z-20"
-            x-data="{ open: false }"
         >
             <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
                 <!-- LOGO -->
@@ -47,39 +46,53 @@
                 </a>
 
                 <!-- BOTON MOBILE -->
-                <button class="md:hidden text-slate-700 dark:text-slate-100" @click="open = !open">
-                    <svg
-                        x-show="!open"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-7 w-7"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                <div class="flex items-center gap-3 md:hidden">
+                    <!-- Dark mode -->
+                    <button
+                        @click="dark = !dark"
+                        class="flex items-center justify-center h-9 w-9 rounded-lg border border-slate-300/70 dark:border-white/40 bg-white/90 dark:bg-[#151517] shadow-sm hover:bg-slate-100 dark:hover:bg-[#1e1e20] transition-colors duration-200"
                     >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"
-                        />
-                    </svg>
+                        <!-- Luna -->
+                        <svg
+                            x-show="!dark"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="h-5 w-5 text-slate-800 inline-block shrink-0"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75
+                           0-1.323.258-2.584.727-3.752A9.753 9.753 0 003 12c0 5.385 
+                           4.365 9.75 9.75 9.75a9.753 9.753 0 009.002-6.748z"
+                            />
+                        </svg>
 
-                    <svg
-                        x-show="open"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-7 w-7"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                        <!-- Sol -->
+                        <svg
+                            x-show="dark"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 32 32"
+                            class="h-5 w-5 text-yellow-400 fill-current"
+                        >
+                            <path
+                                d="M 15 3 L 15 8 L 17 8 L 17 3 Z M 7.5 6.09375 L 6.09375 7.5 L 9.625 11.0625 L 11.0625 9.625 Z M 24.5 6.09375 L 20.9375 9.625 L 22.375 11.0625 L 25.90625 7.5 Z M 16 9 C 12.144531 9 9 12.144531 9 16 C 9 19.855469 12.144531 23 16 23 C 19.855469 23 23 19.855469 23 16 C 23 12.144531 19.855469 9 16 9 Z M 16 11 C 18.773438 11 21 13.226563 21 16 C 21 18.773438 18.773438 21 16 21 C 13.226563 21 11 18.773438 11 16 C 11 13.226563 13.226563 11 16 11 Z M 3 15 L 3 17 L 8 17 L 8 15 Z M 24 15 L 24 17 L 29 17 L 29 15 Z M 9.625 20.9375 L 6.09375 24.5 L 7.5 25.90625 L 11.0625 22.375 Z M 22.375 20.9375 L 20.9375 22.375 L 24.5 25.90625 L 25.90625 24.5 Z M 15 24 L 15 29 L 17 29 L 17 24 Z"
+                            ></path>
+                        </svg>
+                    </button>
+
+                    <!-- Idioma -->
+                    <button
+                        @click="switchLang(lang === 'es' ? 'en' : 'es')"
+                        class="flex items-center h-9 px-3 rounded-lg border border-slate-300/70 dark:border-white/40 bg-white/90 dark:bg-[#151517] text-xs font-semibold"
                     >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                </button>
+                        <span x-show="lang === 'es'">🇲🇽 ES</span>
+                        <span x-show="lang === 'en'">🇺🇸 EN</span>
+                    </button>
+                </div>
 
                 <!-- MENU DESKTOP -->
                 <nav class="hidden md:flex items-center gap-6 text-sm">
@@ -153,66 +166,6 @@
                     </button>
                 </nav>
             </div>
-
-            <!-- MENU MOBILE -->
-            <div
-                class="md:hidden bg-white dark:bg-[#09090b] border-t border-slate-200/60 dark:border-white/20"
-                x-show="open"
-                x-transition
-            >
-                <div class="px-6 py-4 flex flex-col gap-4 text-sm">
-                    <a href="#top" class="py-2" @click="open=false" x-text="t('menu_inicio')"></a>
-                    <a href="#experiencia" class="py-2" @click="open=false" x-text="t('menu_experiencia')"></a>
-                    <a href="#proyectos" class="py-2" @click="open=false" x-text="t('menu_proyectos')"></a>
-                    <a href="#contacto" class="py-2" @click="open=false" x-text="t('menu_contacto')"></a>
-
-                    <div class="flex items-center gap-4 pt-4 border-t dark:border-white/20">
-                        <button
-                            @click="dark = !dark"
-                            class="ml-4 flex items-center justify-center h-9 w-9 rounded-lg border border-slate-300/70 dark:border-white/40 bg-white/90 dark:bg-[#151517] shadow-sm hover:bg-slate-100 dark:hover:bg-[#1e1e20] transition-colors duration-200"
-                            aria-label="Cambiar tema"
-                        >
-                            <!-- LUNA (modo claro) -->
-                            <svg
-                                x-show="!dark"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                class="h-5 w-5 text-slate-800"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.323.258-2.584.727-3.752A9.753 9.753 0 003 12c0 5.385 4.365 9.75 9.75 9.75a9.753 9.753 0 009.002-6.748z"
-                                />
-                            </svg>
-
-                            <!-- SOL (modo oscuro) -->
-                            <svg
-                                x-show="dark"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 32 32"
-                                class="h-5 w-5 text-yellow-400 fill-current"
-                            >
-                                <path
-                                    d="M 15 3 L 15 8 L 17 8 L 17 3 Z M 7.5 6.09375 L 6.09375 7.5 L 9.625 11.0625 L 11.0625 9.625 Z M 24.5 6.09375 L 20.9375 9.625 L 22.375 11.0625 L 25.90625 7.5 Z M 16 9 C 12.144531 9 9 12.144531 9 16 C 9 19.855469 12.144531 23 16 23 C 19.855469 23 23 19.855469 23 16 C 23 12.144531 19.855469 9 16 9 Z M 16 11 C 18.773438 11 21 13.226563 21 16 C 21 18.773438 18.773438 21 16 21 C 13.226563 21 11 18.773438 11 16 C 11 13.226563 13.226563 11 16 11 Z M 3 15 L 3 17 L 8 17 L 8 15 Z M 24 15 L 24 17 L 29 17 L 29 15 Z M 9.625 20.9375 L 6.09375 24.5 L 7.5 25.90625 L 11.0625 22.375 Z M 22.375 20.9375 L 20.9375 22.375 L 24.5 25.90625 L 25.90625 24.5 Z M 15 24 L 15 29 L 17 29 L 17 24 Z"
-                                ></path>
-                            </svg>
-                        </button>
-
-                        <!-- Idioma -->
-                        <button
-                            @click="switchLang(lang === 'es' ? 'en' : 'es')"
-                            class="flex items-center h-9 px-3 rounded-lg border border-slate-300/70 dark:border-white/40 bg-white/90 dark:bg-[#151517] text-xs font-semibold"
-                        >
-                            <span x-show="lang === 'es'">🇲🇽 ES</span>
-                            <span x-show="lang === 'en'">🇺🇸 EN</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
         </header>
 
         <main id="top" class="min-h-[calc(100vh-4rem)]">
@@ -255,7 +208,7 @@
                         ></p>
 
                         <!-- CTA + Stats -->
-                        <div class="flex flex-col gap-4 mt-4 sm:flex-row sm:items-center fade-up">
+                        <div class="flex flex-col gap-4 mt-4 sm:flex-row items-center fade-up">
                             <div class="flex gap-3">
                                 <a
                                     href="#proyectos"
@@ -731,6 +684,7 @@
         <script>
             document.addEventListener('alpine:init', () => {
                 Alpine.data('i18n', () => ({
+                    open: false,
                     // Dark mode por defecto en "dark"
                     dark: (localStorage.getItem('theme') ?? 'dark') === 'dark',
 
